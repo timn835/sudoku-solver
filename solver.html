@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku solver</title>
+    <link rel="stylesheet" href="sudoku.css">
+</head>
+<body>
+    <div class="grid">
+        <div class="big-row">
+            <div class="square" id="s0">
+                <div class="column">
+                    <div class="cell r0 c0 s0"><input type=text value="1" /></div>
+                    <div class="cell r1 c0 s0"><input type=text value="4"/></div>
+                    <div class="cell r2 c0 s0"><input type=text value="7"/></div>
+                </div>
+                <div class="column">
+                    <div class="cell r0 c1 s0"><input type=text value="2"/></div>
+                    <div class="cell r1 c1 s0"><input type=text value="5"/></div>
+                    <div class="cell r2 c1 s0"><input type=text value="8"/></div>
+                </div>
+                <div class="column">
+                    <div class="cell r0 c2 s0"><input type=text value="3"/></div>
+                    <div class="cell r1 c2 s0"><input type=text value="6"/></div>
+                    <div class="cell r2 c2 s0"><input type=text value="9"/></div>
+                </div>
+            </div>
+            <div class="square" id="s1">
+                <div class="column">
+                    <div class="cell r0 c3 s1"><input type=text value="1" /></div>
+                    <div class="cell r1 c3 s1"><input type=text value="4" /></div>
+                    <div class="cell r2 c3 s1"><input type=text value="7" /></div>
+                </div>
+                <div class="column">
+                    <div class="cell r0 c4 s1"><input type=text value="2" /></div>
+                    <div class="cell r1 c4 s1"><input type=text value="5" /></div>
+                    <div class="cell r2 c4 s1"><input type=text value="8" /></div>
+                </div>
+                <div class="column">
+                    <div class="cell r0 c5 s1"><input type=text value="3" /></div>
+                    <div class="cell r1 c5 s1"><input type=text value="6" /></div>
+                    <div class="cell r2 c5 s1"><input type=text value="9" /></div>
+                </div>
+            </div>
+            <div class="square" id="s2">
+                <div class="column">
+                    <div class="cell r0 c6 s2"><input type=text value="1" /></div>
+                    <div class="cell r1 c6 s2"><input type=text value="4" /></div>
+                    <div class="cell r2 c6 s2"><input type=text value="7" /></div>
+                </div>
+                <div class="column">
+                    <div class="cell r0 c7 s2"><input type=text value="2" /></div>
+                    <div class="cell r1 c7 s2"><input type=text value="5" /></div>
+                    <div class="cell r2 c7 s2"><input type=text value="8" /></div>
+                </div>
+                <div class="column">
+                    <div class="cell r0 c8 s2"><input type=text value="3" /></div>
+                    <div class="cell r1 c8 s2"><input type=text value="6" /></div>
+                    <div class="cell r2 c8 s2"><input type=text value="9" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="big-row">
+            <div class="square" id="s3">
+                <div class="column">
+                    <div class="cell r3 c0 s3"><input type=text value="1" /></div>
+                    <div class="cell r4 c0 s3"><input type=text value="4" /></div>
+                    <div class="cell r5 c0 s3"><input type=text value="7" /></div>
+                </div>
+                <div class="column">
+                    <div class="cell r3 c1 s3"><input type=text value="2" /></div>
+                    <div class="cell r4 c1 s3"><input type=text value="5" /></div>
+                    <div class="cell r5 c1 s3"><input type=text value="8" /></div>
+                </div>
+                <div class="column">
+                    <div class="cell r3 c2 s3"><input type=text value="3" /></div>
+                    <div class="cell r4 c2 s3"><input type=text value="6" /></div>
+                    <div class="cell r5 c2 s3"><input type=text value="9" /></div>
+                </div>
+            </div>
+            <div class="square" id="s4">
+                <div class="column">
+                    <div class="cell r3 c3 s4"><input type=text value="1" /></div>
+                    <div class="cell r4 c3 s4"><input type=text value="4" /></div>
+                    <div class="cell r5 c3 s4"><input type=text value="7" /></div>
+                </div>
+                <div class="column">
+                    <div class="cell r3 c4 s4"><input type=text value="2" /></div>
+                    <div class="cell r4 c4 s4"><input type=text value="5" /></div>
+                    <div class="cell r5 c4 s4"><input type=text value="8" /></div>
+                </div>
+                <div class="column">
+                    <div class="cell r3 c5 s4"><input type=text value="3" /></div>
+                    <div class="cell r4 c5 s4"><input type=text value="6" /></div>
+                    <div class="cell r5 c5 s4"><input type=text value="9" /></div>
+                </div>
+            </div>
+            <div class="square" id="s5">
+                <div class="column">
+                    <div class="cell r3 c6 s5"><input type=text value="1" /></div>
+                    <div class="cell r4 c6 s5"><input type=text value="4" /></div>
+                    <div class="cell r5 c6 s5"><input type=text value="7" /></div>
+                </div>
+                <div class="column">
+                    <div class="cell r3 c7 s5"><input type=text value="2" /></div>
+                    <div class="cell r4 c7 s5"><input type=text value="5" /></div>
+                    <div class="cell r5 c7 s5"><input type=text value="8" /></div>
+                </div>
+                <div class="column">
+                    <div class="cell r3 c8 s5"><input type=text value="3" /></div>
+                    <div class="cell r4 c8 s5"><input type=text value="6" /></div>
+                    <div class="cell r5 c8 s5"><input type=text value="9" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="big-row">
+            <div class="square" id="s6">
+                <div class="column">
+                    <div class="cell r6 c0 s6"><input type=text value="1" /></div>
+                    <div class="cell r7 c0 s6"><input type=text value="4" /></div>
+                    <div class="cell r8 c0 s6"><input type=text value="7" /></div>
+                </div>
+                <div class="column">
+                    <div class="cell r6 c1 s6"><input type=text value="2" /></div>
+                    <div class="cell r7 c1 s6"><input type=text value="5" /></div>
+                    <div class="cell r8 c1 s6"><input type=text value="8" /></div>
+                </div>
+                <div class="column">
+                    <div class="cell r6 c2 s6"><input type=text value="3" /></div>
+                    <div class="cell r7 c2 s6"><input type=text value="6" /></div>
+                    <div class="cell r8 c2 s6"><input type=text value="9" /></div>
+                </div>
+            </div>
+            <div class="square" id="s7">
+                <div class="column">
+                    <div class="cell r6 c3 s7"><input type=text value="1" /></div>
+                    <div class="cell r7 c3 s7"><input type=text value="4" /></div>
+                    <div class="cell r8 c3 s7"><input type=text value="7" /></div>
+                </div>
+                <div class="column">
+                    <div class="cell r6 c4 s7"><input type=text value="2" /></div>
+                    <div class="cell r7 c4 s7"><input type=text value="5" /></div>
+                    <div class="cell r8 c4 s7"><input type=text value="8" /></div>
+                </div>
+                <div class="column">
+                    <div class="cell r6 c5 s7"><input type=text value="3" /></div>
+                    <div class="cell r7 c5 s7"><input type=text value="6" /></div>
+                    <div class="cell r8 c5 s7"><input type=text value="9" /></div>
+                </div>
+            </div>
+            <div class="square" id="s8">
+                <div class="column">
+                    <div class="cell r6 c6 s8"><input type=text value="1" /></div>
+                    <div class="cell r7 c6 s8"><input type=text value="4" /></div>
+                    <div class="cell r8 c6 s8"><input type=text value="7" /></div>
+                </div>
+                <div class="column">
+                    <div class="cell r6 c7 s8"><input type=text value="2" /></div>
+                    <div class="cell r7 c7 s8"><input type=text value="5" /></div>
+                    <div class="cell r8 c7 s8"><input type=text value="8" /></div>
+                </div>
+                <div class="column">
+                    <div class="cell r6 c8 s8"><input type=text value="3" /></div>
+                    <div class="cell r7 c8 s8"><input type=text value="6" /></div>
+                    <div class="cell r8 c8 s8"><input type=text value="9" /></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="buttons">
+        <button id="solve">Solve</button>
+        <button id="get-grid">Get a grid</button>
+    </div>
+    <div class="error"></div>
+    <script src="sudoku.js"></script>
+</body>
+</html>
