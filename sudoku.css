@@ -85,6 +85,8 @@ button:hover {
     background-color: #ADD8E6;
 }
 .error {
+    font-size: 1.5em;
+    letter-spacing: 1px;
     color:red;
     display: none;
 }
