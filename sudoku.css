@@ -66,7 +66,7 @@ h2 {
 }
 .buttons {
     margin: 20px auto;
-    max-width: 33vw;
+    max-width: 320px;
 }
 button {
     width: 120px;
@@ -90,4 +90,9 @@ button:hover {
 }
 .show-error {
     display: block;
+}
+@media only screen and (min-width: 600px) {
+    .buttons {
+        max-width: 33vw;
+    }
 }
