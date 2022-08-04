@@ -6,8 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudoku solver</title>
     <link rel="stylesheet" href="sudoku.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mouse+Memoirs&display=swap" rel="stylesheet">
 </head>
 <body>
+    <h2>Welcome to my sudoku solver!</h2>
     <div class="grid">
         <div class="big-row">
             <div class="square" id="s0">
@@ -172,6 +176,8 @@
     <div class="buttons">
         <button id="solve">Solve</button>
         <button id="get-grid">Get a grid</button>
+        <button id="get-hint">Get a hint</button>
+        <button id="clear-board">Clear the board</button>
     </div>
     <div class="error"></div>
     <script src="sudoku.js"></script>

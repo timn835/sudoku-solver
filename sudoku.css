@@ -1,5 +1,11 @@
 body {
     text-align:center;
+    background-color: #aef359;
+    font-family: 'Mouse Memoirs', sans-serif;
+}
+h2 {
+    font-size: 2em;
+    letter-spacing: 2px
 }
 .grid {
     margin-top: 30px;
@@ -30,12 +36,24 @@ body {
     height: 35px;
     box-sizing: border-box;
     text-align:center;
+    background-color: white;
+}
+.selectable-cell {
+    background-color: #ADD8E6;
+    transition: all 0.25s ease-in-out;
+}
+.selectable-cell:hover {
+    cursor: pointer;
+    background-color: #1F51FF;
 }
 .cell input {
     width:90%;
     height:90%;
     border:none;
     text-align: center;
+    background: transparent;
+    font-family: inherit;
+    font-size: 1em;
 }
 .cell input:focus {
     outline:none;
@@ -47,16 +65,24 @@ body {
     border-bottom:1px solid black;
 }
 .buttons {
-    margin: 20px;
+    margin: 20px auto;
+    max-width: 33vw;
 }
 button {
     width: 120px;
     border-radius:10px;
     margin: 0 20px 10px;
+    transition: all 0.25s ease-in-out;
+    font-family: inherit;
+    font-size: 1em;
+    letter-spacing: 1px
 }
 button:hover {
     cursor:pointer;
-    background-color: #aef359;
+    background-color: #ADD8E6;
+}
+.selected-button {
+    background-color: #ADD8E6;
 }
 .error {
     color:red;

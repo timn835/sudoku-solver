@@ -1,3 +1,12 @@
+function clearBoard() {
+    for(var i = 0; i < 9; i++) {
+        var row = document.getElementsByClassName('r' + i);
+        for(var c of row) {
+            c.firstChild.value = '';
+        }
+    }
+}
+
 function fillGrid(grid) {
     for(var i = 0; i < 9; i++) {
         var row = document.getElementsByClassName('r' + i);
@@ -11,13 +20,22 @@ function fillGrid(grid) {
         }
     }
 }
+function fillCell(grid, r, c) {
+    var row = document.getElementsByClassName('r' + r);
+    for(var col of row) {
+        var colNum = parseInt(col.classList[2][1])
+        if(colNum === c) {
+            col.firstChild.value = grid[r][c];
+            break;
+        }
+    }
+}
 
 function getGrid() {
     var grid = new Array(9).fill(0).map(() => new Array(9));
     for(var i = 0; i < 9; i++) {
         var row = document.getElementsByClassName('r' + i);
         for(var c of row) {
-            //console.log(i, parseInt(c.classList[2][1]))
             grid[i][parseInt(c.classList[2][1])] = c.firstChild.value
         }
     }
@@ -39,25 +57,28 @@ function validGrid(grid) {
     return true;
 }
 
-function solve() {
+function solve(fill = true) {
     error.classList.remove('show-error');
     var grid = getGrid();
     if(validGrid(grid)) {
         if(initialCheck(grid)) {
-            if(solveSudoku(grid, 0, 0)) {
+            var solved = solveSudoku(grid, 0, 0)
+            if(solved && fill) {
                 fillGrid(grid);
-            } else {
-                error.textContent = 'No solution exists';
-                error.classList.add('show-error');
+                return grid;
             }
-        } else {
-            error.textContent = 'Entries are initially contradicting';
+            if(solved) return grid;
+            error.textContent = 'No solution exists';
             error.classList.add('show-error');
+            return null;
         }
-    } else {
-        error.textContent = 'Entries are not of the correct type';
+        error.textContent = 'Entries are initially contradicting';
         error.classList.add('show-error');
+        return null;
     }
+    error.textContent = 'Entries are not of the correct type';
+    error.classList.add('show-error');
+    return null;
 }
 
 function solveSudoku(grid, r, c)
@@ -135,6 +156,58 @@ function getExample() {
     }
 }
 
+function getHint() {
+    function solveCell(e) {
+        if(e.target.nodeName === "DIV"){
+            var row = parseInt(e.target.classList[1][1])
+            var col = parseInt(e.target.classList[2][1])
+            e.target.firstChild.value = grid[row][col]
+            e.target.classList.remove('selectable-cell')
+            e.target.firstChild.classList.remove('selectable-cell')
+        }
+        else {
+            var row = parseInt(e.target.parentNode.classList[1][1])
+            var col = parseInt(e.target.parentNode.classList[2][1])
+            e.target.value = grid[row][col]
+            e.target.classList.remove('selectable-cell')
+            e.target.parentNode.classList.remove('selectable-cell')
+        }
+    }
+    var cells = document.getElementsByClassName('cell');
+    if(getHintButton.textContent === 'Get a hint') {
+        var grid = solve(false);
+        if(grid !== null) {
+            solveButton.removeEventListener("click", solve);
+            getGridButton.removeEventListener("click", getExample);
+            getClearButton.removeEventListener("click", clearBoard);
+            getHintButton.textContent = 'Choose squares';
+            getHintButton.classList.add('selected-button');
+            for(var cell of cells) {
+                var child = cell.firstChild
+                child.readOnly = true;
+                if(child.value === '') {
+                    cell.classList.add('selectable-cell')
+                    child.classList.add('selectable-cell')
+                    cell.addEventListener('click', solveCell, true)
+                } 
+            }
+        }
+    } else {
+        solveButton.addEventListener("click", solve);
+        getGridButton.addEventListener("click", getExample);
+        getClearButton.addEventListener("click", clearBoard);
+        getHintButton.classList.remove('selected-button');
+        getHintButton.textContent = 'Get a hint';
+        for(var cell of cells) {
+            var child = cell.firstChild
+            child.readOnly = false;
+            cell.classList.remove('selectable-cell')
+            child.classList.remove('selectable-cell')
+            cell.replaceWith(cell.cloneNode(true));
+        }
+    }
+}
+
 var examples = [
     [
         [5,3,0,0,7,0,0,0,0],
@@ -166,13 +239,27 @@ var examples = [
         [7,0,0,0,0,0,4,0,0],
         [4,0,9,0,0,0,2,0,0],
         [0,0,0,0,0,0,8,1,5],
+    ],[
+        [4,0,0,0,0,0,0,0,8],
+        [0,3,8,2,0,0,1,0,0],
+        [6,0,0,0,0,3,0,0,0],
+        [0,1,3,0,0,9,0,0,5],
+        [0,6,0,0,0,0,0,0,0],
+        [0,0,0,4,0,0,0,9,0],
+        [0,0,0,0,7,0,2,0,0],
+        [8,0,0,0,0,0,0,0,0],
+        [0,9,5,0,0,4,0,0,1],
     ]
 ]
 
 var exampleNum = 0;
-var numOfExamples = 3;
+var numOfExamples = 4;
 var error = document.querySelector('.error');
 var solveButton = document.getElementById('solve');
 var getGridButton = document.getElementById('get-grid');
+var getHintButton = document.getElementById('get-hint');
+var getClearButton = document.getElementById('clear-board');
 solveButton.addEventListener("click", solve);
 getGridButton.addEventListener("click", getExample);
+getHintButton.addEventListener("click", getHint);
+getClearButton.addEventListener("click", clearBoard);
